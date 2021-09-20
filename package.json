@@ -1,0 +1,25 @@
+{
+  "name": "virtual-sensor",
+  "version": "1.0.0",
+  "description": "Sample project to demo how sensors can deliver data to the SIF cloud system.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --trace-warnings index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tic/smart-inf-virtual-sensor.git"
+  },
+  "author": "G. Michael Fitzgerald",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tic/smart-inf-virtual-sensor/issues"
+  },
+  "homepage": "https://github.com/tic/smart-inf-virtual-sensor#readme",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^5.1.1",
+    "dotenv": "^10.0.0",
+    "luxon": "^2.0.2",
+    "mqtt": "^4.2.8"
+  }
+}
