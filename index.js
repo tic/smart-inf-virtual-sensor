@@ -54,19 +54,19 @@ class VirtualSensor {
 // and sample distances are in [0, 30).
 function generateSampleData() {
     return {
-        app_name: "VirtualSensorA",
+        app_name: "VirtualSensorB",
         time: DateTime.utc().toISO(),
         metadata: {
             deploymentType: "virtual"
         },
         payload_fields: {
             temperature: {
-                displayName: "Virtual Temperature Probe",
+                displayName: "vtp",
                 unit: "F",
                 value: parseInt(100 * (Math.random() * 20 + 60)) / 100
             },
             distance: {
-                displayName: "Simulated Ultrasonic Sensor",
+                displayName: "sus",
                 unit: "cm",
                 value: parseInt(30 * Math.random())
             }
@@ -132,7 +132,7 @@ function main() {
         const data = generateSampleData();
         const blob = {
             app_name: data.app_name,
-            jwtToken: accessToken,
+            token: accessToken,
             data: data
         }
         if(config.SCRIPT_MODE === "SEND") {
