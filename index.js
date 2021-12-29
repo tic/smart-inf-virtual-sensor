@@ -19,7 +19,6 @@ if(
     !config.CLIENTID
 ) throw("Missing required .env properties!");
 
-const { DateTime } = require("luxon");
 const mqtt = require("mqtt");
 
 //   Creates a generalized abstraction of what a virtual
@@ -54,22 +53,14 @@ class VirtualSensor {
 // and sample distances are in [0, 30).
 function generateSampleData() {
     return {
-        app_name: "VirtualSensorB",
-        time: DateTime.utc().toISO(),
+        app_name: "vst0",
+        time: (new Date()).getTime() / 1000,
         metadata: {
             deploymentType: "virtual"
         },
-        payload_fields: {
-            temperature: {
-                displayName: "vtp",
-                unit: "F",
-                value: parseInt(100 * (Math.random() * 20 + 60)) / 100
-            },
-            distance: {
-                displayName: "sus",
-                unit: "cm",
-                value: parseInt(30 * Math.random())
-            }
+        payload: {
+            temperature: 25 * Math.sin((new Date()).getTime() / 2000) + 47.5 + Math.random() * 5,
+            distance: 10 * Math.cos((new Date()).getTime() / 3000) + 10 + Math.random() * 2
         }
     }
 }
@@ -128,7 +119,7 @@ function main() {
     var accessToken;
     let blobNum = 0;
 
-    const sensor = new VirtualSensor(5000, () => {
+    const sensor = new VirtualSensor(100, () => {
         const data = generateSampleData();
         const blob = {
             app_name: data.app_name,
@@ -138,7 +129,7 @@ function main() {
         if(config.SCRIPT_MODE === "SEND") {
             const outgoing = JSON.stringify(blob);
             console.log(`[BLOB ${blobNum++}] Sending ${outgoing.length} bytes to the broker`);
-            client.publish("data/ingest", outgoing);
+            client.publish("data/ingest/passthrough", outgoing);
         } else {
             console.debug(`[BLOB ${blobNum++}] ` + JSON.stringify(blob));
         }

@@ -19,7 +19,6 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^5.1.1",
     "dotenv": "^10.0.0",
-    "luxon": "^2.0.2",
     "mqtt": "^4.2.8"
   }
 }
